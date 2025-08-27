@@ -1,0 +1,26 @@
+<!-- Save as posts.html and open in browser -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posts List</title>
+</head>
+<body>
+    <h1>Posts</h1>
+    <ul id="posts"></ul>
+    <script>
+        fetch('http://127.0.0.1:8081/posts')
+            .then(response => response.json())
+            .then(data => {
+                const ul = document.getElementById('posts');
+                data.forEach(post => {
+                    ul.innerHTML += `<li>
+                        <strong>${post.title}</strong> (${post.status})<br>
+                        ${post.content}<br>
+                        Category: ${post.category}<br>
+                        Created: ${post.created_date}
+                    </li>`;
+                });
+            });
+    </script>
+</body>
+</html>
