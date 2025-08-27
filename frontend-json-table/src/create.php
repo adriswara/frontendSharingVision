@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
+<?php include 'header.php'; ?>
 
-<head>
-    <title>Create Post</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-light">
     <div class="container mt-5">
         <h2 class="mb-4">Create New Post</h2>
         <form id="createForm" class="mb-3">
@@ -31,7 +24,7 @@
                 <input type="text" id="category" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
-            <a href="index.html" class="btn btn-secondary ms-2">Back</a>
+            <a href="index.php" class="btn btn-secondary ms-2">Back</a>
         </form>
         <div id="message"></div>
     </div>
@@ -78,7 +71,7 @@
                 .then(response => {
                     if (response.ok) {
                         document.getElementById('message').innerHTML = '<div class="alert alert-success">Post created successfully!</div>';
-                        setTimeout(() => window.location.href = 'index.html', 1000);
+                        setTimeout(() => window.location.href = 'index.php', 1000);
                     } else {
                         document.getElementById('message').innerHTML = '<div class="alert alert-danger">Failed to create post.</div>';
                     }
