@@ -1,0 +1,2 @@
+1. Nyalakan terlebih dahulu bagian server side backend
+2. Gunakan web service untuk membaca frontend kode html dengan file berformat php
