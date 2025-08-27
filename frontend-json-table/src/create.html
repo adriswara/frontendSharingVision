@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Post</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">Create New Post</h2>
+        <form id="createForm" class="mb-3">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" id="title" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label>
+                <select id="status" class="form-select" required>
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                    <option value="trashed">Trashed</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content:</label>
+                <textarea id="content" class="form-control" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category:</label>
+                <input type="text" id="category" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a href="index.html" class="btn btn-secondary ms-2">Back</a>
+        </form>
+        <div id="message"></div>
+    </div>
+    <script>
+        document.getElementById('createForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const postData = {
+                title: document.getElementById('title').value,
+                status: document.getElementById('status').value,
+                content: document.getElementById('content').value,
+                category: document.getElementById('category').value,
+                created_date: new Date().toISOString()
+            };
+            fetch('http://127.0.0.1:8081/posts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(postData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('message').innerHTML = '<div class="alert alert-success">Post created successfully!</div>';
+                    setTimeout(() => window.location.href = 'index.html', 1000);
+                } else {
+                    document.getElementById('message').innerHTML = '<div class="alert alert-danger">Failed to create post.</div>';
+                }
+            })
+            .catch(() => {
+                document.getElementById('message').innerHTML = '<div class="alert alert-danger">Error connecting to server.</div>';
+            });
+        });
+    </script>
+</body>
+</html>
