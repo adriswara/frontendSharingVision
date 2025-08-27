@@ -66,11 +66,38 @@
             // Handle form submit
             document.getElementById('editForm').addEventListener('submit', function (e) {
                 e.preventDefault();
+
+                  // validation
+
+            // Get values
+            const title = document.getElementById('title').value.trim();
+            const content = document.getElementById('content').value.trim();
+            const category = document.getElementById('category').value.trim();
+
+            // Validation
+            let errorMsg = '';
+            if (title.length < 20) {
+                errorMsg += 'Title must be at least 20 characters.<br>';
+            }
+            if (content.length < 200) {
+                errorMsg += 'Content must be at least 200 characters.<br>';
+            }
+            if (category.length < 3) {
+                errorMsg += 'Category must be at least 3 characters.<br>';
+            }
+
+            if (errorMsg) {
+                document.getElementById('message').innerHTML = `<div class="alert alert-danger">${errorMsg}</div>`;
+                return;
+            }
+
+            //validation
+
                 const postData = {
-                    title: document.getElementById('title').value,
+                    title,
                     status: document.getElementById('status').value,
-                    content: document.getElementById('content').value,
-                    category: document.getElementById('category').value,
+                    content,
+                    category,
                     created_date: new Date().toISOString()
                 };
                 fetch(`http://127.0.0.1:8081/posts/${postId}`, {
